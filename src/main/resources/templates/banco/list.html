@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>[[#{banco.list.headline}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 class="flex-grow-1">[[#{banco.list.headline}]]</h1>
+        <div>
+            <a th:href="@{/bancos/add}" class="btn btn-primary ms-2">[[#{banco.list.createNew}]]</a>
+        </div>
+    </div>
+    <div th:if="${bancoes.empty}">[[#{banco.list.empty}]]</div>
+    <div th:if="${!bancoes.empty}" class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th scope="col">[[#{banco.id.label}]]</th>
+                <th scope="col">[[#{banco.compe.label}]]</th>
+                <th scope="col">[[#{banco.cnpj.label}]]</th>
+                <th scope="col">[[#{banco.razaoSocial.label}]]</th>
+                <th scope="col">[[#{banco.nome.label}]]</th>
+                <!--                            <th scope="col">[[#{banco.produtos.label}]]</th>-->
+                <!--                            <th scope="col">[[#{banco.url.label}]]</th>-->
+                <th><!-- --></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="banco : ${bancoes}">
+                <td>[[${banco.id}]]</td>
+                <td>[[${banco.compe}]]</td>
+                <td>[[${banco.cnpj}]]</td>
+                <td>[[${banco.razaoSocial}]]</td>
+                <td>[[${banco.nome}]]</td>
+                <!--                            <td>[[${banco.produtos}]]</td>-->
+                <!--                            <td>[[${banco.url}]]</td>-->
+                <td>
+                    <div class="float-end text-nowrap">
+                        <a th:href="@{/bancos/edit/{id}(id=${banco.id})}" class="btn btn-sm btn-secondary">[[#{banco.list.edit}]]</a>
+                        <form th:action="@{/bancos/delete/{id}(id=${banco.id})}"
+                              th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-secondary">[[#{banco.list.delete}]]</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

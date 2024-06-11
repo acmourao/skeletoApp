@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>[[#{banco.add.headline}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 class="flex-grow-1">[[#{banco.add.headline}]]</h1>
+        <div>
+            <a th:href="@{/bancos}" class="btn btn-secondary">[[#{banco.add.back}]]</a>
+        </div>
+    </div>
+    <div th:replace="~{fragments/forms::globalErrors('banco')}"/>
+    <form th:action="${requestUri}" method="post">
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='compe', required=true)}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='cnpj', required=true)}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='razaoSocial', required=true)}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='nome')}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='produtos')}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='banco', field='url')}"/>
+        <input type="submit" th:value="#{banco.add.headline}" class="btn btn-primary mt-4"/>
+    </form>
+</div>
+</body>
+</html>

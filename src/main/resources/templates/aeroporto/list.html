@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>[[#{aeroporto.list.headline}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 class="flex-grow-1">[[#{aeroporto.list.headline}]]</h1>
+        <div>
+            <a th:href="@{/aeroportos/add}" class="btn btn-primary ms-2">[[#{aeroporto.list.createNew}]]</a>
+        </div>
+    </div>
+    <div th:if="${aeroportoes.empty}">[[#{aeroporto.list.empty}]]</div>
+    <div th:if="${!aeroportoes.empty}" class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th scope="col">[[#{aeroporto.id.label}]]</th>
+                <th scope="col">[[#{aeroporto.sigla.label}]]</th>
+                <th scope="col">[[#{aeroporto.uf.label}]]</th>
+                <th scope="col">[[#{aeroporto.cidade.label}]]</th>
+                <th scope="col">[[#{aeroporto.aeroporto.label}]]</th>
+                <th scope="col">[[#{aeroporto.localidade.label}]]</th>
+                <th><!-- --></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="aeroporto : ${aeroportoes}">
+                <td>[[${aeroporto.id}]]</td>
+                <td>[[${aeroporto.sigla}]]</td>
+                <td>[[${aeroporto.uf}]]</td>
+                <td>[[${aeroporto.cidade}]]</td>
+                <td>[[${aeroporto.aeroporto}]]</td>
+                <td>[[${aeroporto.localidade}]]</td>
+                <td>
+                    <div class="float-end text-nowrap">
+                        <a th:href="@{/aeroportos/edit/{id}(id=${aeroporto.id})}" class="btn btn-sm btn-secondary">[[#{aeroporto.list.edit}]]</a>
+                        <form th:action="@{/aeroportos/delete/{id}(id=${aeroporto.id})}"
+                              th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-secondary">[[#{aeroporto.list.delete}]]</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
