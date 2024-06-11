@@ -26,11 +26,11 @@ public class Municipio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String municipio;
 
-    @OneToMany(mappedBy = "localidade")
-    private Set<Aeroporto> aeroporto;
+    @OneToMany(mappedBy = "aeroporto")
+    private Set<Aeroporto> aeroportos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uf")

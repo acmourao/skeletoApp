@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/aeroportos")
@@ -59,7 +61,7 @@ public class AeroportoController {
         model.addAttribute("aeroporto", aeroportoService.get(id));
         model.addAttribute("localidadeValues", municipioRepository.findByMunicipioContainingIgnoreCase(aeroportoService.get(id).getCidade())
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Municipio::getId, Municipio::getMunicipio)));
+                .collect(CustomCollectors.toSortedMap(Municipio::getId, municipio -> municipio.getMunicipio() + " - " + municipio.getUf().getUf() )));
         return "aeroporto/edit";
     }
 
