@@ -36,32 +36,22 @@ public class MunicipioService {
     }
 
     public List<Municipio> findAll() {
-        return municipioRepository.findAll(Sort.by("municipio")).stream().limit(20)
+        return municipioRepository.findAll(Sort.by("municipio"))
+                .stream().limit(20)
                 .toList();
     }
 
     public List<Municipio> findByMunicipio(String municipio) {
-        return municipioRepository.findByMunicipioContainingIgnoreCaseOrderByMunicipio(municipio).stream().limit(20).toList();
-        //Sort.by("municipio")).stream().limit(20)
-        //.toList();
+        return municipioRepository.findByMunicipioContainingIgnoreCaseOrderByMunicipio(municipio)
+                .stream()
+                .limit(20)
+                .toList();
     }
 
-//    public List<MunicipioDTO> findAll() {
-//        return municipioRepository.findAll(Sort.by("municipio")).stream().limit(20)
-//                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
-//                .toList();
-//    }
-
-    //    public MunicipioDTO get(final Integer id) {
-//        return municipioRepository.findById(id)
-//                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
-//                .orElseThrow(NotFoundException::new);
-//    }
     public Municipio get(final Integer id) {
         return municipioRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }
-
 
     public Integer create(final MunicipioDTO municipioDTO) {
         final Municipio municipio = new Municipio();
@@ -80,17 +70,10 @@ public class MunicipioService {
         municipioRepository.deleteById(id);
     }
 
-    private MunicipioDTO mapToDTO(final Municipio municipio, final MunicipioDTO municipioDTO) {
-        municipioDTO.setId(municipio.getId());
-        municipioDTO.setMunicipio(municipio.getMunicipio());
-        municipioDTO.setUf(municipio.getUf() == null ? null : municipio.getUf().getUf());
-        return municipioDTO;
-    }
-
     private Municipio mapToEntity(final MunicipioDTO municipioDTO, final Municipio municipio) {
         municipio.setMunicipio(municipioDTO.getMunicipio());
         final Estado uf = municipioDTO.getUf() == null ? null : estadoRepository.findById(municipioDTO.getUf())
-                .orElseThrow(() -> new NotFoundException("uf not found"));
+                .orElseThrow(NotFoundException::new);
         municipio.setUf(uf);
         return municipio;
     }

@@ -14,7 +14,6 @@ public class MunicipioDTO {
 
     @NotNull
     @Size(max = 255)
-    @MunicipioMunicipioUnique
     private String municipio;
 
     @Size(max = 2)

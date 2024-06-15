@@ -38,11 +38,11 @@ public class UsuarioController {
 
     @ModelAttribute
     public void prepareContext(final Model model) {
-        model.addAttribute("bancoValues", bancoRepository.findAll(Sort.by("id"))
-                .stream()
-                .collect(CustomCollectors.toSortedMap(Banco::getId, Banco::getCompe)));
-        model.addAttribute("domicilioValues", municipioRepository.findAll(Sort.by("id"))
-                .stream()
+        model.addAttribute("bancoValues", bancoRepository.findAll(Sort.by("compe"))
+                .stream().limit(20)
+                .collect(CustomCollectors.toSortedMap(Banco::getId, Banco::getRazaoSocial)));
+        model.addAttribute("domicilioValues", municipioRepository.findAll(Sort.by("municipio"))
+                .stream().limit(20)
                 .collect(CustomCollectors.toSortedMap(Municipio::getId, Municipio::getMunicipio)));
     }
 

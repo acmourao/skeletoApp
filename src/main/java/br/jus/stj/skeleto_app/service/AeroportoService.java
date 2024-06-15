@@ -25,14 +25,6 @@ public class AeroportoService {
         this.municipioRepository = municipioRepository;
     }
 
-    //    public List<AeroportoDTO> findAll() {
-//        return aeroportoRepository
-//                .findAll(Sort.by("sigla"))
-//                .stream()
-//                .limit(20)
-//                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
-//                .toList();
-//    }
     public List<Aeroporto> findAll() {
         return aeroportoRepository.findAll(Sort.by("sigla"))
                 .stream()
@@ -43,12 +35,6 @@ public class AeroportoService {
         return aeroportoRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }
-
-//    public AeroportoDTO get(final Integer id) {
-//        return aeroportoRepository.findById(id)
-//                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
-//                .orElseThrow(NotFoundException::new);
-//    }
 
     public Integer create(final AeroportoDTO aeroportoDTO) {
         final Aeroporto aeroporto = new Aeroporto();
@@ -67,23 +53,13 @@ public class AeroportoService {
         aeroportoRepository.deleteById(id);
     }
 
-    private AeroportoDTO mapToDTO(final Aeroporto aeroporto, final AeroportoDTO aeroportoDTO) {
-        aeroportoDTO.setId(aeroporto.getId());
-        aeroportoDTO.setSigla(aeroporto.getSigla());
-        aeroportoDTO.setUf(aeroporto.getUf());
-        aeroportoDTO.setCidade(aeroporto.getCidade());
-        aeroportoDTO.setAeroporto(aeroporto.getAeroporto());
-        aeroportoDTO.setLocalidade(aeroporto.getMunicipio() == null ? null : aeroporto.getMunicipio());
-        return aeroportoDTO;
-    }
-
     private Aeroporto mapToEntity(final AeroportoDTO aeroportoDTO, final Aeroporto aeroporto) {
         aeroporto.setSigla(aeroportoDTO.getSigla());
         aeroporto.setUf(aeroportoDTO.getUf());
         aeroporto.setCidade(aeroportoDTO.getCidade());
         aeroporto.setAeroporto(aeroportoDTO.getAeroporto());
-        final Municipio municipio = aeroportoDTO.getLocalidade() == null ? null : municipioRepository.findById(aeroportoDTO.getLocalidade().getId())
-                .orElseThrow(() -> new NotFoundException("localidade not found"));
+        final Municipio municipio = aeroportoDTO.getMunicipio() == null ? null : municipioRepository.findById(aeroportoDTO.getMunicipio().getId())
+                .orElseThrow(NotFoundException::new);
         aeroporto.setMunicipio(municipio);
         return aeroporto;
     }

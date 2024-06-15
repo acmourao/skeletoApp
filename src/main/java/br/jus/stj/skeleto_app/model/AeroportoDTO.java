@@ -30,6 +30,6 @@ public class AeroportoDTO {
     @Size(max = 255)
     private String aeroporto;
 
-    private Municipio localidade;
+    private Municipio municipio;
 
 }

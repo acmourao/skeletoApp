@@ -28,7 +28,7 @@ public class BancoController {
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("bancoes", bancoService.findAll());
+        model.addAttribute("bancos", bancoService.findAll());
         return "banco/list";
     }
 
