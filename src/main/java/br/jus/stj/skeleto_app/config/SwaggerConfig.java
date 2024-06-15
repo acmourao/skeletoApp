@@ -28,12 +28,12 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openApiSpec() {
         return new OpenAPI()
-                .info(new Info().title("Projeto Final PUCPR - Curso de Backend Java SpringBoot")
+                .info(new Info().title("Projeto Skeleto Backend Java SpringBoot")
                         .version("V.1.0")
                         .license(new License().name("Base de Dados em memória H2").url("http://localhost:8080/h2-console")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("API para Controle de Biblioteca")
-                        .url("https://github.com/acmourao/biblioteca.git"))
+                        .description("API Skeleto")
+                        .url("https://github.com/acmourao/skeletoApp.git"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(
                         new Components()
@@ -59,18 +59,6 @@ public class SwaggerConfig {
                                         .addProperty("path", new StringSchema())
                                 )
                 );
-    }
-
-    @Bean
-    public OperationCustomizer operationCustomizer() {
-        // add error type to each operation
-        return (operation, handlerMethod) -> {
-            operation.getResponses().addApiResponse("4xx/5xx", new ApiResponse()
-                    .description("Error")
-                    .content(new Content().addMediaType("*/*", new MediaType().schema(
-                            new Schema<MediaType>().$ref("ApiErrorResponse")))));
-            return operation;
-        };
     }
 
 }

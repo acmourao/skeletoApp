@@ -1,5 +1,6 @@
 package br.jus.stj.skeleto_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,8 +35,9 @@ public class Aeroporto {
     @Column(nullable = false)
     private String aeroporto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "municipio_id")
+    @JsonIgnore
     private Municipio localidade;
 
 }

@@ -1,5 +1,6 @@
 package br.jus.stj.skeleto_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -42,6 +43,7 @@ public class Estado {
     private String flagImage;
 
     @OneToMany(mappedBy = "uf")
+    @JsonIgnore
     private Set<Municipio> municipio;
 
 }

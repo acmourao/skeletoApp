@@ -7,7 +7,6 @@ import br.jus.stj.skeleto_app.service.AeroportoService;
 import br.jus.stj.skeleto_app.util.CustomCollectors;
 import br.jus.stj.skeleto_app.util.WebUtils;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 @Controller
 @RequestMapping("/aeroportos")
@@ -59,7 +57,7 @@ public class AeroportoController {
         model.addAttribute("aeroporto", aeroportoService.get(id));
         model.addAttribute("localidadeValues", municipioRepository.findByMunicipioContainingIgnoreCase(aeroportoService.get(id).getCidade())
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Municipio::getId, Municipio::getMunicipio)));
+                .collect(CustomCollectors.toSortedMap(Municipio::getId, municipio -> municipio.getMunicipio() + " - " + municipio.getUf().getUf())));
         return "aeroporto/edit";
     }
 

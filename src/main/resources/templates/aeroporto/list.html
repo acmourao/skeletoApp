@@ -33,7 +33,10 @@
                 <td>[[${aeroporto.uf}]]</td>
                 <td>[[${aeroporto.cidade}]]</td>
                 <td>[[${aeroporto.aeroporto}]]</td>
-                <td>[[${aeroporto.localidade}]]</td>
+                <td>
+                    <span th:if="${aeroporto.localidade}"
+                          th:text="|${aeroporto.localidade.municipio} - ${aeroporto.localidade.uf.uf}|"></span>
+                </td>
                 <td>
                     <div class="float-end text-nowrap">
                         <a th:href="@{/aeroportos/edit/{id}(id=${aeroporto.id})}" class="btn btn-sm btn-secondary">[[#{aeroporto.list.edit}]]</a>
