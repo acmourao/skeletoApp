@@ -29,12 +29,13 @@ public class Municipio {
     @Column(nullable = false)
     private String municipio;
 
-    @OneToMany(mappedBy = "aeroporto")
-    private Set<Aeroporto> aeroportos;
-
     @ManyToOne
     @JoinColumn(name = "uf")
     @JsonIgnore
     private Estado uf;
+
+    @OneToMany(mappedBy = "aeroporto")
+    //@JsonIgnore
+    private Set<Aeroporto> aeroportos;
 
 }

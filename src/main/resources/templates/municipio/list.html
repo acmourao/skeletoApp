@@ -27,7 +27,10 @@
             <tr th:each="municipio : ${municipios}">
                 <td>[[${municipio.id}]]</td>
                 <td>[[${municipio.municipio}]]</td>
-                <td>[[${municipio.uf}]]</td>
+                <td>
+                    <span th:if="${municipio.uf}"
+                          th:text="|${municipio.uf.name} - ${municipio.uf.uf}|"></span>
+                </td>
                 <td>
                     <div class="float-end text-nowrap">
                         <a th:href="@{/municipios/edit/{id}(id=${municipio.id})}" class="btn btn-sm btn-secondary">[[#{municipio.list.edit}]]</a>

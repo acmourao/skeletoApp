@@ -13,5 +13,5 @@ public interface MunicipioRepository extends JpaRepository<Municipio, Integer> {
 
     boolean existsByMunicipioIgnoreCase(String municipio);
 
-    List<Municipio> findByMunicipioContainingIgnoreCase(String cidade);
+    List<Municipio> findByMunicipioContainingIgnoreCaseOrderByMunicipio(String cidade);
 }

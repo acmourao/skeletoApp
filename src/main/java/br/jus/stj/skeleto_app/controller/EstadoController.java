@@ -28,7 +28,7 @@ public class EstadoController {
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("estadoes", estadoService.findAll());
+        model.addAttribute("estados", estadoService.findAll());
         return "estado/list";
     }
 

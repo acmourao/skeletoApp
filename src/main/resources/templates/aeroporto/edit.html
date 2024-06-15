@@ -19,7 +19,7 @@
         <div th:replace="~{fragments/forms::inputRow(object='aeroporto', field='uf', required=true)}"/>
         <div th:replace="~{fragments/forms::inputRow(object='aeroporto', field='cidade', required=true)}"/>
         <div th:replace="~{fragments/forms::inputRow(object='aeroporto', field='aeroporto', required=true)}"/>
-        <div th:replace="~{fragments/forms::inputRow(object='aeroporto', field='localidade', type='select')}"/>
+        <div th:replace="~{fragments/forms::inputRow(object='aeroporto', field='municipio', type='select')}"/>
         <input type="submit" th:value="#{aeroporto.edit.headline}" class="btn btn-primary mt-4"/>
     </form>
 </div>

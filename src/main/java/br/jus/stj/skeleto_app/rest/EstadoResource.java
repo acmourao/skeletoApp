@@ -1,5 +1,6 @@
 package br.jus.stj.skeleto_app.rest;
 
+import br.jus.stj.skeleto_app.domain.Estado;
 import br.jus.stj.skeleto_app.model.EstadoDTO;
 import br.jus.stj.skeleto_app.service.EstadoService;
 import br.jus.stj.skeleto_app.util.ReferencedException;
@@ -33,12 +34,12 @@ public class EstadoResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<EstadoDTO>> getAllEstados() {
+    public ResponseEntity<List<Estado>> getAllEstados() {
         return ResponseEntity.ok(estadoService.findAll());
     }
 
     @GetMapping("/{uf}")
-    public ResponseEntity<EstadoDTO> getEstado(@PathVariable(name = "uf") final String uf) {
+    public ResponseEntity<Estado> getEstado(@PathVariable(name = "uf") final String uf) {
         return ResponseEntity.ok(estadoService.get(uf));
     }
 

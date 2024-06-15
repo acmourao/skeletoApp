@@ -32,7 +32,7 @@ public class AeroportoController {
 
     @GetMapping
     public String list(final Model model) {
-        model.addAttribute("aeroportoes", aeroportoService.findAll());
+        model.addAttribute("aeroportos", aeroportoService.findAll());
         return "aeroporto/list";
     }
 
@@ -55,7 +55,7 @@ public class AeroportoController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id, final Model model) {
         model.addAttribute("aeroporto", aeroportoService.get(id));
-        model.addAttribute("localidadeValues", municipioRepository.findByMunicipioContainingIgnoreCase(aeroportoService.get(id).getCidade())
+        model.addAttribute("municipioValues", municipioRepository.findByMunicipioContainingIgnoreCaseOrderByMunicipio(aeroportoService.get(id).getCidade())
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Municipio::getId, municipio -> municipio.getMunicipio() + " - " + municipio.getUf().getUf())));
         return "aeroporto/edit";

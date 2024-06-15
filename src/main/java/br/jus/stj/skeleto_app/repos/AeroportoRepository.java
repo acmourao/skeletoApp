@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AeroportoRepository extends JpaRepository<Aeroporto, Integer> {
 
-    Aeroporto findFirstByLocalidade(Municipio municipio);
+    Aeroporto findFirstByMunicipio(Municipio municipio);
 
     boolean existsBySiglaIgnoreCase(String sigla);
 

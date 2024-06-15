@@ -26,17 +26,25 @@ public class EstadoService {
         this.municipioRepository = municipioRepository;
     }
 
-    public List<EstadoDTO> findAll() {
-        final List<Estado> estadoes = estadoRepository.findAll(Sort.by("uf"));
-        return estadoes.stream()
-                .map(estado -> mapToDTO(estado, new EstadoDTO()))
-                .toList();
+//    public List<EstadoDTO> findAll() {
+//        final List<Estado> estadoes = estadoRepository.findAll(Sort.by("uf"));
+//        return estadoes.stream()
+//                .map(estado -> mapToDTO(estado, new EstadoDTO()))
+//                .toList();
+//    }
+
+    public List<Estado> findAll() {
+        return estadoRepository.findAll(Sort.by("uf"));
     }
 
-    public EstadoDTO get(final String uf) {
-        return estadoRepository.findById(uf)
-                .map(estado -> mapToDTO(estado, new EstadoDTO()))
-                .orElseThrow(NotFoundException::new);
+//    public EstadoDTO get(final String uf) {
+//        return estadoRepository.findById(uf)
+//                .map(estado -> mapToDTO(estado, new EstadoDTO()))
+//                .orElseThrow(NotFoundException::new);
+//    }
+
+    public Estado get(final String uf) {
+        return estadoRepository.findById(uf).orElseThrow(NotFoundException::new);
     }
 
     public String create(final EstadoDTO estadoDTO) {

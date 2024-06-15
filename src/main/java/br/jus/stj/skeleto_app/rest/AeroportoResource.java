@@ -1,5 +1,6 @@
 package br.jus.stj.skeleto_app.rest;
 
+import br.jus.stj.skeleto_app.domain.Aeroporto;
 import br.jus.stj.skeleto_app.model.AeroportoDTO;
 import br.jus.stj.skeleto_app.service.AeroportoService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,12 +32,12 @@ public class AeroportoResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<AeroportoDTO>> getAllAeroportos() {
+    public ResponseEntity<List<Aeroporto>> getAllAeroportos() {
         return ResponseEntity.ok(aeroportoService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AeroportoDTO> getAeroporto(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<Aeroporto> getAeroporto(@PathVariable(name = "id") final Integer id) {
         return ResponseEntity.ok(aeroportoService.get(id));
     }
 

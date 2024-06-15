@@ -35,17 +35,33 @@ public class MunicipioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<MunicipioDTO> findAll() {
+    public List<Municipio> findAll() {
         return municipioRepository.findAll(Sort.by("municipio")).stream().limit(20)
-                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
                 .toList();
     }
 
-    public MunicipioDTO get(final Integer id) {
+    public List<Municipio> findByMunicipio(String municipio) {
+        return municipioRepository.findByMunicipioContainingIgnoreCaseOrderByMunicipio(municipio).stream().limit(20).toList();
+        //Sort.by("municipio")).stream().limit(20)
+        //.toList();
+    }
+
+//    public List<MunicipioDTO> findAll() {
+//        return municipioRepository.findAll(Sort.by("municipio")).stream().limit(20)
+//                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
+//                .toList();
+//    }
+
+    //    public MunicipioDTO get(final Integer id) {
+//        return municipioRepository.findById(id)
+//                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
+//                .orElseThrow(NotFoundException::new);
+//    }
+    public Municipio get(final Integer id) {
         return municipioRepository.findById(id)
-                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
                 .orElseThrow(NotFoundException::new);
     }
+
 
     public Integer create(final MunicipioDTO municipioDTO) {
         final Municipio municipio = new Municipio();
@@ -87,10 +103,10 @@ public class MunicipioService {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final Municipio municipio = municipioRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        final Aeroporto localidadeAeroporto = aeroportoRepository.findFirstByLocalidade(municipio);
-        if (localidadeAeroporto != null) {
-            referencedWarning.setKey("municipio.aeroporto.localidade.referenced");
-            referencedWarning.addParam(localidadeAeroporto.getId());
+        final Aeroporto municipioAeroporto = aeroportoRepository.findFirstByMunicipio(municipio);
+        if (municipioAeroporto != null) {
+            referencedWarning.setKey("municipio.aeroporto.municipio.referenced");
+            referencedWarning.addParam(municipioAeroporto.getId());
             return referencedWarning;
         }
         final Usuario domicilioUsuario = usuarioRepository.findFirstByDomicilio(municipio);

@@ -9,19 +9,12 @@ import br.jus.stj.skeleto_app.util.NotFoundException;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class AeroportoService {
-
-
-    @Autowired
-    private Environment env;
 
     private final AeroportoRepository aeroportoRepository;
     private final MunicipioRepository municipioRepository;
@@ -32,20 +25,30 @@ public class AeroportoService {
         this.municipioRepository = municipioRepository;
     }
 
-    public List<AeroportoDTO> findAll() {
-        return aeroportoRepository
-                .findAll(Sort.by("sigla"))
+    //    public List<AeroportoDTO> findAll() {
+//        return aeroportoRepository
+//                .findAll(Sort.by("sigla"))
+//                .stream()
+//                .limit(20)
+//                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
+//                .toList();
+//    }
+    public List<Aeroporto> findAll() {
+        return aeroportoRepository.findAll(Sort.by("sigla"))
                 .stream()
-                .limit(20)
-                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
-                .toList();
+                .limit(20).toList();
     }
 
-    public AeroportoDTO get(final Integer id) {
+    public Aeroporto get(final Integer id) {
         return aeroportoRepository.findById(id)
-                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
                 .orElseThrow(NotFoundException::new);
     }
+
+//    public AeroportoDTO get(final Integer id) {
+//        return aeroportoRepository.findById(id)
+//                .map(aeroporto -> mapToDTO(aeroporto, new AeroportoDTO()))
+//                .orElseThrow(NotFoundException::new);
+//    }
 
     public Integer create(final AeroportoDTO aeroportoDTO) {
         final Aeroporto aeroporto = new Aeroporto();
@@ -70,7 +73,7 @@ public class AeroportoService {
         aeroportoDTO.setUf(aeroporto.getUf());
         aeroportoDTO.setCidade(aeroporto.getCidade());
         aeroportoDTO.setAeroporto(aeroporto.getAeroporto());
-        aeroportoDTO.setLocalidade(aeroporto.getLocalidade() == null ? null : aeroporto.getLocalidade());
+        aeroportoDTO.setLocalidade(aeroporto.getMunicipio() == null ? null : aeroporto.getMunicipio());
         return aeroportoDTO;
     }
 
@@ -79,9 +82,9 @@ public class AeroportoService {
         aeroporto.setUf(aeroportoDTO.getUf());
         aeroporto.setCidade(aeroportoDTO.getCidade());
         aeroporto.setAeroporto(aeroportoDTO.getAeroporto());
-        final Municipio localidade = aeroportoDTO.getLocalidade() == null ? null : municipioRepository.findById(aeroportoDTO.getLocalidade().getId())
+        final Municipio municipio = aeroportoDTO.getLocalidade() == null ? null : municipioRepository.findById(aeroportoDTO.getLocalidade().getId())
                 .orElseThrow(() -> new NotFoundException("localidade not found"));
-        aeroporto.setLocalidade(localidade);
+        aeroporto.setMunicipio(municipio);
         return aeroporto;
     }
 

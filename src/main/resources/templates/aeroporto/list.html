@@ -12,8 +12,8 @@
             <a th:href="@{/aeroportos/add}" class="btn btn-primary ms-2">[[#{aeroporto.list.createNew}]]</a>
         </div>
     </div>
-    <div th:if="${aeroportoes.empty}">[[#{aeroporto.list.empty}]]</div>
-    <div th:if="${!aeroportoes.empty}" class="table-responsive">
+    <div th:if="${aeroportos.empty}">[[#{aeroporto.list.empty}]]</div>
+    <div th:if="${!aeroportos.empty}" class="table-responsive">
         <table class="table table-striped table-hover align-middle">
             <thead>
             <tr>
@@ -22,20 +22,20 @@
                 <th scope="col">[[#{aeroporto.uf.label}]]</th>
                 <th scope="col">[[#{aeroporto.cidade.label}]]</th>
                 <th scope="col">[[#{aeroporto.aeroporto.label}]]</th>
-                <th scope="col">[[#{aeroporto.localidade.label}]]</th>
+                <th scope="col">[[#{aeroporto.municipio.label}]]</th>
                 <th><!-- --></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="aeroporto : ${aeroportoes}">
+            <tr th:each="aeroporto : ${aeroportos}">
                 <td>[[${aeroporto.id}]]</td>
                 <td>[[${aeroporto.sigla}]]</td>
                 <td>[[${aeroporto.uf}]]</td>
                 <td>[[${aeroporto.cidade}]]</td>
                 <td>[[${aeroporto.aeroporto}]]</td>
                 <td>
-                    <span th:if="${aeroporto.localidade}"
-                          th:text="|${aeroporto.localidade.municipio} - ${aeroporto.localidade.uf.uf}|"></span>
+                    <span th:if="${aeroporto.municipio}"
+                          th:text="|${aeroporto.municipio.municipio} - ${aeroporto.municipio.uf.uf}|"></span>
                 </td>
                 <td>
                     <div class="float-end text-nowrap">

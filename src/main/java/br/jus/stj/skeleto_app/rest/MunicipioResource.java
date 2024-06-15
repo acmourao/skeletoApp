@@ -1,5 +1,6 @@
 package br.jus.stj.skeleto_app.rest;
 
+import br.jus.stj.skeleto_app.domain.Municipio;
 import br.jus.stj.skeleto_app.model.MunicipioDTO;
 import br.jus.stj.skeleto_app.service.MunicipioService;
 import br.jus.stj.skeleto_app.util.ReferencedException;
@@ -33,12 +34,12 @@ public class MunicipioResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<MunicipioDTO>> getAllMunicipios() {
+    public ResponseEntity<List<Municipio>> getAllMunicipios() {
         return ResponseEntity.ok(municipioService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MunicipioDTO> getMunicipio(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<Municipio> getMunicipio(@PathVariable(name = "id") final Integer id) {
         return ResponseEntity.ok(municipioService.get(id));
     }
 
@@ -49,6 +50,18 @@ public class MunicipioResource {
         final Integer createdId = municipioService.create(municipioDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
+
+    @GetMapping("/buscar/{municipio}")
+    @ApiResponse(responseCode = "200")
+    public ResponseEntity<List<Municipio>> listaMunicipioByName(@PathVariable String municipio) {
+        return ResponseEntity.ok(municipioService.findByMunicipio(municipio));
+    }
+
+//    @PostMapping(value = "/buscar", consumes = "application/json")
+//    @ApiResponse(responseCode = "200")
+//    public ResponseEntity<List<Municipio>> listaMunicipioPorNome(@RequestBody String municipio) {
+//        return ResponseEntity.ok(municipioService.findByMunicipio(municipio));
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Integer> updateMunicipio(@PathVariable(name = "id") final Integer id,
