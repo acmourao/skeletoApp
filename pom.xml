@@ -86,7 +86,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>br.jus.stj.skeleto_app.SkeletoAppApplication</mainClass>
+                    <mainClass>br.jus.stj.skeletoApp.SkeletoAppApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
             </plugin>
